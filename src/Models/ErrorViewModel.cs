@@ -1,6 +1,6 @@
 using System;
 
-namespace src.Models
+namespace ElectronTest.Models
 {
     public class ErrorViewModel
     {
