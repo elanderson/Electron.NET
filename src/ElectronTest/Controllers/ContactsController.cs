@@ -103,7 +103,7 @@ namespace ElectronTest.Controllers
             {
                 using (var client = new HttpClient { BaseAddress = new Uri(_apiBaseUrl) })
                 {
-                    await client.PostAsync(id.ToString(), new StringContent(JsonConvert.SerializeObject(contact), Encoding.UTF8, "application/json"));
+                    await client.PutAsync(id.ToString(), new StringContent(JsonConvert.SerializeObject(contact), Encoding.UTF8, "application/json"));
                 }
                 return RedirectToAction("Index");
             }
