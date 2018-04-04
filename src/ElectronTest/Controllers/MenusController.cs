@@ -84,7 +84,7 @@ namespace ElectronTest.Controllers
                 new MenuItem { Label = "Contacts", Role = MenuRole.window, Submenu = new MenuItem[] {
                      new MenuItem { Label = "Create", 
                                     Accelerator = "Shift+CmdOrCtrl+C",
-                                    Click = () => Electron.WindowManager.BrowserWindows.First().LoadURL("http://localhost:8003/Contacts/Create")
+                                    Click = () => Electron.WindowManager.BrowserWindows.First().LoadURL($"http://localhost:{BridgeSettings.WebPort}/Contacts/Create")
                                   }
                      }
                 }
