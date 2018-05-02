@@ -7,9 +7,11 @@ namespace ElectronTest.Controllers
 {
     public class DialogsController : Controller
     {
+        private static bool saveAdded;
+
         public IActionResult Index()
         {
-            if (!HybridSupport.IsElectronActive) return Ok();
+            if (!HybridSupport.IsElectronActive || saveAdded) return Ok();
 
             Electron.IpcMain.On("save-dialog", async (args) =>
             {
@@ -19,7 +21,7 @@ namespace ElectronTest.Controllers
                     Title = "Save contact as JSON",
                     Filters = new FileFilter[]
                     {
-                        new FileFilter { Name = "Contact", Extensions = new string[] {"json" } }
+                        new FileFilter { Name = "JSON", Extensions = new string[] {"json" } }
                     }
                 };
 
@@ -27,6 +29,7 @@ namespace ElectronTest.Controllers
                 Electron.IpcMain.Send(mainWindow, "save-dialog-reply", result);
             });
 
+            saveAdded = true;
 
             return Ok();
         }

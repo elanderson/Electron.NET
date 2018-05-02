@@ -61,6 +61,31 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+<div>
+    <button id="save-dialog" class="btn">Export</button>
+</div>
+
+        <script>
+            (function(){
+                const { ipcRenderer } = require("electron");
+                const fs = require('fs');
+
+                document.getElementById("save-dialog").addEventListener("click", () => {
+                    ipcRenderer.send("save-dialog");
+                });
+
+                ipcRenderer.on("save-dialog-reply", (sender, path) => {
+                    if (!path) return;
+
+                    fs.writeFile(path, "JSON.stringify(Model)", function (err) {
+                        console.log(err);
+                        return;
+                    });
+                });
+               
+            }());
+        </script>
