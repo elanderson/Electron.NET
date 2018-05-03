@@ -73,6 +73,7 @@
             (function(){
                 const { ipcRenderer } = require("electron");
                 const fs = require('fs');
+                var model = '@Html.Raw(Json.Serialize(@Model))';
 
                 document.getElementById("save-dialog").addEventListener("click", () => {
                     ipcRenderer.send("save-dialog");
@@ -81,7 +82,7 @@
                 ipcRenderer.on("save-dialog-reply", (sender, path) => {
                     if (!path) return;
 
-                    fs.writeFile(path, "JSON.stringify(Model)", function (err) {
+                    fs.writeFile(path, model, function (err) {
                         console.log(err);
                         return;
                     });
