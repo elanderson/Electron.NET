@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ContactsApi.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContactsApi
 {
@@ -28,7 +29,7 @@ namespace ContactsApi
             services.AddDbContext<ContactsDbContext>(options => 
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
